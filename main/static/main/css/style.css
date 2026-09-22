@@ -195,3 +195,92 @@ footer {
     font-size: 70px;
     font-weight: bold;
 }
+
+/* =========================
+   About Section
+========================= */
+
+.about {
+    padding: 100px 8%;
+    background-color: #f8f8f8;
+}
+
+
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.about-heading {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+
+.section-subtitle {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+
+.about-heading h2 {
+    font-size: 42px;
+}
+
+
+.about-content {
+    display: flex;
+    gap: 60px;
+    align-items: flex-start;
+}
+
+
+.about-text {
+    flex: 1;
+}
+
+
+.about-text p {
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+
+.about-highlights {
+    flex: 1;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+.highlight-card {
+    padding: 25px;
+
+    background-color: #ffffff;
+
+    border-radius: 8px;
+
+    border: 1px solid #e5e5e5;
+}
+
+
+.highlight-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+
+.highlight-card p {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+.about-button {
+    margin-top: 40px;
+}
