@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+            Sourav P | Django Developer
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="{% url 'home' %}">SOURAV P</a>
+
+            <div>
+                <a href="#">Home</a>
+                <a href="#">About</a>
+                <a href="#">Skills</a>
+                <a href="#">Experience</a>
+                <a href="#">Projects</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2026 Sourav P. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
