@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load portfolio_tags %}
 
 {% block title %}
     Home | Sourav P
@@ -10,7 +11,7 @@
      Hero Section
 ========================= -->
 
-<section class="hero">
+<section class="hero" id="home">
 
     <div class="hero-content">
 
@@ -32,13 +33,15 @@
 
         <div class="hero-buttons">
 
-            <a href="#" class="btn btn-primary">
+            <a href="#projects" class="btn btn-primary">
                 View My Projects
             </a>
 
-            <a href="{{ profile.resume.url }}" class="btn btn-secondary">
-                Download Resume
-            </a>
+            {% if profile.resume %}
+                <a href="{{ profile.resume.url }}" class="btn btn-secondary" target="_blank">
+                    Download Resume
+                </a>
+            {% endif %}
 
         </div>
 
@@ -76,7 +79,7 @@
      About Section
 ========================= -->
 
-<section class="about">
+<section class="about" id="about">
 
     <div class="about-container">
 
@@ -97,23 +100,7 @@
 
             <div class="about-text">
 
-                <p>
-                    I am a passionate Django Developer with a
-                    background in Computer Science and a strong
-                    interest in web application development.
-                </p>
-
-                <p>
-                    I enjoy building clean, responsive and
-                    user-friendly web applications using Python,
-                    Django, HTML, CSS and JavaScript.
-                </p>
-
-                <p>
-                    I am continuously improving my development
-                    skills by working on practical projects and
-                    learning modern web development practices.
-                </p>
+                {{ profile.about|linebreaks }}
 
             </div>
 
@@ -196,7 +183,7 @@
      Skills Section
 ========================= -->
 
-<section class="skills">
+<section class="skills" id="skills">
 
     <div class="skills-container">
 
@@ -253,7 +240,7 @@
      Experience Section
 ========================= -->
 
-<section class="experience">
+<section class="experience" id="experience">
 
     <div class="experience-container">
 
@@ -338,7 +325,7 @@
      Projects Section
 ========================= -->
 
-<section class="projects">
+<section class="projects" id="projects">
 
     <div class="projects-container">
 
@@ -397,7 +384,9 @@
 
                         <div class="project-technologies">
 
-                            {{ project.technologies }}
+                            {% for technology in project.technologies|split_technologies %}
+                                <span>{{ technology }}</span>
+                            {% endfor %}
 
                         </div>
 
@@ -459,7 +448,7 @@
      Contact Section
 ========================= -->
 
-<section class="contact">
+<section class="contact" id="contact">
 
     <div class="contact-container">
 
