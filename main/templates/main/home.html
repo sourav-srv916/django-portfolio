@@ -362,160 +362,92 @@
 
         <div class="projects-grid">
 
+            {% for project in projects %}
 
-            <!-- Project 1 -->
+                <div class="project-card">
 
-            <div class="project-card">
+                    <div class="project-image">
 
-                <div class="project-image">
+                        {% if project.image %}
 
-                    <div class="project-placeholder">
-                        ML API
-                    </div>
+                            <img src="{{ project.image.url }}"
+                                alt="{{ project.name }}">
 
-                </div>
+                        {% else %}
 
+                            <div class="project-placeholder">
+                                {{ project.name }}
+                            </div>
 
-                <div class="project-content">
-
-                    <h3>
-                        House Price Prediction ML API
-                    </h3>
-
-                    <p>
-                        A machine learning model deployed as a
-                        monitored REST API for house price prediction.
-                    </p>
-
-
-                    <div class="project-technologies">
-
-                        <span>Python</span>
-                        <span>FastAPI</span>
-                        <span>Scikit-learn</span>
-                        <span>Docker</span>
+                        {% endif %}
 
                     </div>
 
 
-                    <div class="project-links">
+                    <div class="project-content">
 
-                        <a href="#" target="_blank">
-                            GitHub
-                        </a>
+                        <h3>
+                            {{ project.name }}
+                        </h3>
 
-                        <a href="#" target="_blank">
-                            Live Demo
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
+                        <p>
+                            {{ project.description }}
+                        </p>
 
 
-            <!-- Project 2 -->
+                        <div class="project-technologies">
 
-            <div class="project-card">
+                            {{ project.technologies }}
 
-                <div class="project-image">
-
-                    <div class="project-placeholder">
-                        DJANGO
-                    </div>
-
-                </div>
+                        </div>
 
 
-                <div class="project-content">
+                        <div class="project-links">
 
-                    <h3>
-                        Django Student Management System
-                    </h3>
+                            {% if project.github_url %}
 
-                    <p>
-                        A Django-based Student Management System with
-                        full CRUD functionality using Models, ORM,
-                        ModelForms, Views, Templates and URL routing.
-                    </p>
+                                <a href="{{ project.github_url }}"
+                                target="_blank">
+                                    GitHub
+                                </a>
 
-
-                    <div class="project-technologies">
-
-                        <span>Python</span>
-                        <span>Django</span>
-                        <span>CRUD</span>
-                        <span>SQLite3</span>
-                        <span>HTML5</span>
-                        <span>CSS3</span>
-
-                    </div>
+                            {% endif %}
 
 
-                    <div class="project-links">
+                            {% if project.live_url %}
 
-                        <a href="#"
-                        target="_blank">
-                            GitHub
-                        </a>
+                                <a href="{{ project.live_url }}"
+                                target="_blank">
+                                    Live Demo
+                                </a>
+
+                            {% endif %}
+
+                        </div>
 
                     </div>
 
                 </div>
 
-            </div>
+            {% empty %}
 
-            <!-- Project 3 -->
+                <div class="project-card">
 
-            <div class="project-card">
+                    <div class="project-content">
 
-                <div class="project-image">
+                        <h3>
+                            No projects added yet
+                        </h3>
 
-                    <div class="project-placeholder">
-                        BANKING
-                    </div>
-
-                </div>
-
-
-                <div class="project-content">
-
-                    <h3>
-                        Banking System Using Inheritance
-                    </h3>
-
-                    <p>
-                        A Python-based banking system demonstrating
-                        inheritance, method overriding, modular
-                        programming and transaction management.
-                    </p>
-
-
-                    <div class="project-technologies">
-
-                        <span>Python</span>
-                        <span>OOP</span>
-                        <span>Inheritance</span>
-                        <span>Method Overriding</span>
-                        <span>Modular Programming</span>
-
-                    </div>
-
-
-                    <div class="project-links">
-
-                        <a href="#"
-                        target="_blank">
-                            GitHub
-                        </a>
+                        <p>
+                            Add projects from Django Admin.
+                        </p>
 
                     </div>
 
                 </div>
 
-            </div>
-
+            {% endfor %}
 
         </div>
 
@@ -560,7 +492,6 @@
                     Contact Information
                 </h3>
 
-
                 <div class="contact-item">
 
                     <h4>
@@ -568,7 +499,7 @@
                     </h4>
 
                     <p>
-                        your.email@example.com
+                        {{ profile.email }}
                     </p>
 
                 </div>
@@ -581,7 +512,7 @@
                     </h4>
 
                     <p>
-                        +91 XXXXX XXXXX
+                        {{ profile.phone }}
                     </p>
 
                 </div>
@@ -594,7 +525,7 @@
                     </h4>
 
                     <p>
-                        Coimbatore, Tamil Nadu, India
+                        {{ profile.location }}
                     </p>
 
                 </div>
@@ -602,13 +533,17 @@
 
                 <div class="contact-social">
 
-                    <a href="#" target="_blank">
-                        GitHub
-                    </a>
+                    {% if profile.github_url %}
+                        <a href="{{ profile.github_url }}" target="_blank">
+                            GitHub
+                        </a>
+                    {% endif %}
 
-                    <a href="#" target="_blank">
-                        LinkedIn
-                    </a>
+                    {% if profile.linkedin_url %}
+                        <a href="{{ profile.linkedin_url }}" target="_blank">
+                            LinkedIn
+                        </a>
+                    {% endif %}
 
                 </div>
 

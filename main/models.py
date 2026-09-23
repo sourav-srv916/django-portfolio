@@ -62,3 +62,23 @@ class Experience(models.Model):
 
     def __str__(self):
         return f"{self.job_title} - {self.company}"
+
+
+class Project(models.Model):
+
+    name = models.CharField(max_length=150)
+
+    description = models.TextField()
+
+    technologies = models.CharField(max_length=300)
+
+    image = models.ImageField(upload_to='projects/', blank=True, null=True)
+
+    github_url = models.URLField(blank=True)
+
+    live_url = models.URLField(blank=True)
+
+    display_order = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.name
