@@ -1,6 +1,9 @@
 from django.shortcuts import render
+from .models import Profile, Skill
 
-# Create your views here.
 
 def home(request):
-    return render(request, 'main/home.html')
+    profile = Profile.objects.first()
+    skills = Skill.objects.all()
+
+    return render(request, 'main/home.html', {'profile': profile, 'skills': skills})

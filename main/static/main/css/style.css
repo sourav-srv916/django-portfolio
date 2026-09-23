@@ -179,10 +179,16 @@ footer {
     align-items: center;
 }
 
+.hero-image img {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 50%;
+}
 
 .profile-placeholder {
-    width: 280px;
-    height: 280px;
+    width: 350px;
+    height: 350px;
 
     border-radius: 50%;
 

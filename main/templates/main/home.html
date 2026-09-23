@@ -19,16 +19,15 @@
         </p>
 
         <h1>
-            Sourav P
+            {{ profile.name }}
         </h1>
 
         <h2>
-            Django Developer
+            {{ profile.title }}
         </h2>
 
         <p class="hero-description">
-            I build web applications using Python, Django
-            and modern web technologies.
+            {{ profile.introduction }}
         </p>
 
         <div class="hero-buttons">
@@ -37,7 +36,7 @@
                 View My Projects
             </a>
 
-            <a href="#" class="btn btn-secondary">
+            <a href="{{ profile.resume.url }}" class="btn btn-secondary">
                 Download Resume
             </a>
 
@@ -45,11 +44,11 @@
 
         <div class="hero-social">
 
-            <a href="#" target="_blank">
+            <a href="{{ profile.github_url }}" target="_blank">
                 GitHub
             </a>
 
-            <a href="#" target="_blank">
+            <a href="{{ profile.linkedin_url }}" target="_blank">
                 LinkedIn
             </a>
 
@@ -60,9 +59,13 @@
 
     <div class="hero-image">
 
-        <div class="profile-placeholder">
-            SP
-        </div>
+        {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="{{ profile.name }}">
+        {% else %}
+            <div class="profile-placeholder">
+                SP
+            </div>
+        {% endif %}
 
     </div>
 
@@ -179,7 +182,7 @@
 
         <div class="about-button">
 
-            <a href="#" class="btn btn-primary">
+            <a href="{{ profile.resume.url }}" class="btn btn-primary">
                 Download Resume
             </a>
 
@@ -217,108 +220,28 @@
 
         <div class="skills-grid">
 
-            <div class="skill-card">
+            {% for skill in skills %}
 
-                <h3>
-                    Python
-                </h3>
+                <div class="skill-card">
 
-                <p>
-                    Programming and application development
-                </p>
+                    <h3>
+                        {{ skill.name }}
+                    </h3>
 
-            </div>
+                    <p>
+                        {{ skill.category }}
+                    </p>
 
+                </div>
 
-            <div class="skill-card">
+            {% empty %}
 
-                <h3>
-                    Django
-                </h3>
+                <div class="skill-card">
+                    <h3>No skills added yet</h3>
+                    <p>Add skills from Django Admin.</p>
+                </div>
 
-                <p>
-                    Web application development
-                </p>
-
-            </div>
-
-
-            <div class="skill-card">
-
-                <h3>
-                    HTML
-                </h3>
-
-                <p>
-                    Web page structure and markup
-                </p>
-
-            </div>
-
-
-            <div class="skill-card">
-
-                <h3>
-                    CSS
-                </h3>
-
-                <p>
-                    Styling and responsive layouts
-                </p>
-
-            </div>
-
-
-            <div class="skill-card">
-
-                <h3>
-                    JavaScript
-                </h3>
-
-                <p>
-                    Interactive web functionality
-                </p>
-
-            </div>
-
-
-            <div class="skill-card">
-
-                <h3>
-                    MySQL
-                </h3>
-
-                <p>
-                    Database management and queries
-                </p>
-
-            </div>
-
-
-            <div class="skill-card">
-
-                <h3>
-                    Git
-                </h3>
-
-                <p>
-                    Version control and project management
-                </p>
-
-            </div>
-
-
-            <div class="skill-card">
-
-                <h3>
-                    GitHub
-                </h3>
-
-                <p>
-                    Code hosting and collaboration
-                </p>
-
-            </div>
+            {% endfor %}
 
         </div>
 
