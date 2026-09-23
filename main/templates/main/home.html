@@ -277,130 +277,55 @@
 
         <div class="experience-timeline">
 
-            <!-- Fobes Skill iTech -->
+            {% for experience in experiences %}
 
-            <div class="experience-item">
+                <div class="experience-item">
 
-                <div class="experience-dot"></div>
+                    <div class="experience-dot"></div>
 
-                <div class="experience-card">
+                    <div class="experience-card">
 
-                    <span class="experience-date">
-                        Aug 2026 – Present
-                    </span>
+                        <span class="experience-date">
+                            {{ experience.start_date }} – {{ experience.end_date }}
+                        </span>
 
-                    <h3>
-                        Python Developer Intern
-                    </h3>
+                        <h3>
+                            {{ experience.job_title }}
+                        </h3>
 
-                    <h4>
-                        Fobes Skill iTech Pvt Ltd
-                    </h4>
+                        <h4>
+                            {{ experience.company }}
+                        </h4>
 
-                    <p>
-                        Worked on a machine learning model deployment
-                        project involving Python, FastAPI, REST APIs,
-                        Docker, testing, logging, monitoring and cloud
-                        deployment.
-                    </p>
+                        <p>
+                            {{ experience.description }}
+                        </p>
 
-                </div>
-
-            </div>
-
-
-            <!-- Experience 1 -->
-
-            <div class="experience-item">
-
-                <div class="experience-dot"></div>
-
-                <div class="experience-card">
-
-                    <span class="experience-date">
-                        May 2022 – Mar 2026
-                    </span>
-
-                    <h3>
-                        Senior Process Associate
-                    </h3>
-
-                    <h4>
-                        RND Softech Private Limited
-                    </h4>
-
-                    <p>
-                        Worked in US healthcare insurance
-                        verification and supported processes
-                        related to medical equipment orders,
-                        pre-authorization and customer service
-                        coordination.
-                    </p>
+                    </div>
 
                 </div>
 
-            </div>
+            {% empty %}
 
+                <div class="experience-item">
 
-            <!-- Experience 2 -->
+                    <div class="experience-dot"></div>
 
-            <div class="experience-item">
+                    <div class="experience-card">
 
-                <div class="experience-dot"></div>
+                        <h3>
+                            No experience added yet
+                        </h3>
 
-                <div class="experience-card">
+                        <p>
+                            Add experience details from Django Admin.
+                        </p>
 
-                    <span class="experience-date">
-                        Mar 2021 – May 2022
-                    </span>
-
-                    <h3>
-                        Production Supervisor
-                    </h3>
-
-                    <h4>
-                        The Jayaraj Group of Automobile
-                    </h4>
-
-                    <p>
-                        Managed production-related activities,
-                        coordinated daily operations and
-                        supported workflow and team requirements.
-                    </p>
+                    </div>
 
                 </div>
 
-            </div>
-
-
-            <!-- Experience 3 -->
-
-            <div class="experience-item">
-
-                <div class="experience-dot"></div>
-
-                <div class="experience-card">
-
-                    <span class="experience-date">
-                        Oct 2019 – Feb 2021
-                    </span>
-
-                    <h3>
-                        System Administrator
-                    </h3>
-
-                    <h4>
-                        Zigma Technologies India (P) Ltd
-                    </h4>
-
-                    <p>
-                        Supported system administration activities,
-                        troubleshooting and day-to-day IT operations.
-                    </p>
-
-                </div>
-
-            </div>
+            {% endfor %}
 
 
         </div>

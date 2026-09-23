@@ -44,3 +44,21 @@ class Skill(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Experience(models.Model):
+
+    job_title = models.CharField(max_length=150)
+
+    company = models.CharField(max_length=150)
+
+    start_date = models.CharField(max_length=50)
+
+    end_date = models.CharField(max_length=50)
+
+    description = models.TextField()
+
+    display_order = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.job_title} - {self.company}"
