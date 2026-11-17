@@ -32,3 +32,10 @@ media/
 *.sqlite3
 *.sql
 *.dump
+
+# Private database migration exports
+portfolio_data.json
+profile_data.json
+
+# Private portfolio media archive
+portfolio_media.zip

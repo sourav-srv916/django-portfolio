@@ -1,6 +1,11 @@
 import logging
 import secrets
 import hashlib
+import json
+import os
+
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
@@ -16,6 +21,56 @@ from django.core.cache import cache
 
 logger = logging.getLogger(__name__)
 
+
+def send_brevo_email(name, email, phone, message):
+
+    api_key = os.getenv('BREVO_API_KEY')
+    sender_email = os.getenv('BREVO_SENDER_EMAIL')
+    notification_email = os.getenv('CONTACT_NOTIFICATION_EMAIL')
+
+    if not all([api_key, sender_email, notification_email]):
+        raise ValueError('Brevo email configuration is incomplete.')
+
+    payload = {
+        'sender': {
+            'name': 'Django Portfolio',
+            'email': sender_email,
+        },
+        'to': [
+            {'email': notification_email}
+        ],
+        'replyTo': {
+            'email': email,
+            'name': name,
+        },
+        'subject': f'New Portfolio Message from {name}',
+        'textContent': (
+            'You have received a new message through your portfolio.\n\n'
+            f'Name: {name}\n'
+            f'Email: {email}\n'
+            f'Phone: {phone}\n\n'
+            f'Message:\n{message}'
+        ),
+    }
+
+    request = Request(
+        'https://api.brevo.com/v3/smtp/email',
+        data=json.dumps(payload).encode('utf-8'),
+        headers={
+            'api-key': api_key,
+            'accept': 'application/json',
+            'content-type': 'application/json',
+        },
+        method='POST',
+    )
+
+    with urlopen(request, timeout=15) as response:
+        if response.status != 201:
+            raise RuntimeError(
+                f'Brevo returned unexpected status: {response.status}'
+            )
+
+        
 # Contact Form Rate Limiting
 CONTACT_RATE_LIMIT = 3
 CONTACT_RATE_TIMEOUT = 600  # 10 minutes
@@ -151,35 +206,46 @@ def home(request):
             )
 
             try:
-                send_mail(
-                    subject=f'New Portfolio Message from {name}',
+                if settings.EMAIL_PROVIDER == 'brevo':
 
-                    message=f"""
-            You have received a new message through your portfolio.
+                    # Production: Brevo HTTPS API
+                    send_brevo_email(
+                        name=name,
+                        email=email,
+                        phone=phone,
+                        message=message,
+                    )
 
-            Name: {name}
-            Email: {email}
-            Phone: {phone}
+                else:
 
-            Message:
-            {message}
-            """,
+                    # Local development: Gmail SMTP
+                    send_mail(
+                        subject=f'New Portfolio Message from {name}',
 
-                  from_email=None,
+                        message=(
+                            'You have received a new message through your portfolio.\n\n'
+                            f'Name: {name}\n'
+                            f'Email: {email}\n'
+                            f'Phone: {phone}\n\n'
+                            f'Message:\n{message}'
+                        ),
 
-                  recipient_list=[settings.EMAIL_HOST_USER],
+                        from_email=None,
 
-                  fail_silently=False,
-                )
+                        recipient_list=[settings.EMAIL_HOST_USER],
+
+                        fail_silently=False,
+                    )
+
             except Exception:
                 logger.exception(
-                  "Email notification failed for contact message from %s",
-                  name
+                    "Email notification failed for contact message from %s",
+                    name
                 )
 
             messages.success(
                 request,
-                "Thank you for contacting me. Your message has been sent to my email successfully. " \
+                "Thank you for contacting me. Your message has been received successfully. "
                 "I'll get back to you as soon as possible."
             )
 

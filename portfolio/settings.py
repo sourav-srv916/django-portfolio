@@ -161,6 +161,10 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+# Email provider selection
+# Local development: smtp
+# PythonAnywhere production: brevo
+EMAIL_PROVIDER = os.getenv('EMAIL_PROVIDER', 'smtp').lower()
 
 # =========================================================
 # CACHE CONFIGURATION
