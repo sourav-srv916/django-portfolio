@@ -34,6 +34,19 @@ ALLOWED_HOSTS = os.getenv(
     'localhost,127.0.0.1'
 ).split(',')
 
+# =========================================================
+# PRODUCTION SECURITY SETTINGS
+# =========================================================
+
+# Enable HTTPS security only in production
+SECURE_SSL_REDIRECT = False
+
+# Secure cookies for HTTPS connections
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
+# Start with HSTS disabled until HTTPS is verified
+SECURE_HSTS_SECONDS = 0
 
 # Application definition
 
