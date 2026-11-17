@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Skill, Experience, Project
+from .models import Profile, Skill, Experience, Project, ContactMessage
 
 
 @admin.register(Profile)
@@ -67,9 +67,16 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
+
     list_display = (
         'name',
         'technologies',
+        'is_featured',
+        'display_order',
+    )
+
+    list_editable = (
+        'is_featured',
         'display_order',
     )
 
@@ -79,6 +86,46 @@ class ProjectAdmin(admin.ModelAdmin):
         'technologies',
     )
 
+    list_filter = (
+        'is_featured',
+    )
+
     ordering = (
         'display_order',
+    )
+
+
+@admin.register(ContactMessage)
+class ContactMessageAdmin(admin.ModelAdmin):
+
+    list_display = (
+        'name',
+        'email',
+        'phone',
+        'created_at',
+        'is_read',
+    )
+
+    search_fields = (
+        'name',
+        'email',
+        'phone',
+        'message',
+    )
+
+    list_filter = (
+        'is_read',
+        'created_at',
+    )
+
+    list_editable = (
+        'is_read',
+    )
+
+    readonly_fields = (
+        'created_at',
+    )
+
+    ordering = (
+        '-created_at',
     )

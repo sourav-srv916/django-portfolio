@@ -17,3 +17,18 @@ db.sqlite3
 # OS files
 .DS_Store
 Thumbs.db
+
+# Collected static files
+staticfiles/
+
+# Uploaded media files
+media/
+
+# Additional environment files
+.env.*
+!.env.example
+
+# Local database backups
+*.sqlite3
+*.sql
+*.dump

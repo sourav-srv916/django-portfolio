@@ -39,3 +39,58 @@ navItems.forEach(function (link) {
         `;
     });
 });
+
+/* =========================================================
+   NAVBAR SECTION-BASED THEME
+========================================================= */
+
+const navbar = document.querySelector(".navbar");
+
+const sections = document.querySelectorAll(
+    "#home, #about, #skills, #experience, #projects, #contact"
+);
+
+const darkSections = ["about", "experience", "contact"];
+
+const observerOptions = {
+    root: null,
+    rootMargin: "-20% 0px -60% 0px",
+    threshold: 0
+};
+
+const sectionObserver = new IntersectionObserver(
+    function (entries) {
+
+        entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+                const sectionId = entry.target.id;
+
+                if (darkSections.includes(sectionId)) {
+
+                    navbar.classList.add("dark-theme");
+                    navbar.classList.remove("light-theme");
+
+                } else {
+
+                    navbar.classList.add("light-theme");
+                    navbar.classList.remove("dark-theme");
+
+                }
+
+            }
+
+        });
+
+    },
+    observerOptions
+);
+
+sections.forEach(function (section) {
+    sectionObserver.observe(section);
+});
+
+
+
+document.getElementById("current-year").textContent = new Date().getFullYear();
