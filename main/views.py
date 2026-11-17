@@ -120,7 +120,7 @@ def is_contact_rate_limited(request):
 def home(request):
 
     # Generate a unique token for each contact form
-    if request.method == 'GET':
+    if request.method in ('GET', 'HEAD'):
 
         contact_form_token = secrets.token_urlsafe(32)
 
