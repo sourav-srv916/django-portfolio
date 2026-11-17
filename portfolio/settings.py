@@ -46,7 +46,7 @@ SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
 
 # Start with HSTS disabled until HTTPS is verified
-SECURE_HSTS_SECONDS = 0
+SECURE_HSTS_SECONDS = 300 if not DEBUG else 0
 
 # Application definition
 
