@@ -18,12 +18,37 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
+from django.http import HttpResponse
+from pathlib import Path
+from django.contrib.sitemaps.views import sitemap
+from main.sitemaps import StaticViewSitemap
 
+sitemaps = {
+    'static': StaticViewSitemap,
+}
 
 urlpatterns = [
+    path(
+        'robots.txt',
+        lambda request: HttpResponse(
+            (Path(settings.BASE_DIR) / 'main' / 'robots.txt').read_text(
+                encoding='utf-8'
+            ),
+            content_type='text/plain; charset=utf-8'
+        ),
+        name='robots_txt'
+    ),
+
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
+    path(
+        'sitemap.xml',
+        sitemap,
+        {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap'
+    ),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(
